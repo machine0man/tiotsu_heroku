@@ -1,80 +1,39 @@
-<<<<<<< HEAD
 
 from mapbox import Datasets
-from flask import Flask, request
-import requests
+from flask import Flask, render_template, request
+from flask.sqlalchemy import SQLAlchemy
+from flask.ext.heroku import Heroku
+from sqlalchemy import create_engine
 
 access_token="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
 
 datasets = Datasets() 
 
 app = Flask(__name__)
-@app.route('/', methods=['GET'])
+heroku = Heroku(app)
+db = SQLAlchemy(app)
+engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
-def datasetprocess(user_id, msg):
-    data = {
-        "recipient": {"id": user_id},
-        "message": {"text": msg}
-    }
-    datasets.update_feature('cjbphbl3008s833ntx1t5psea', 'feature-id', data)
-    #resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    #print(resp.content)
- 
- 
-@app.route('/', methods=['POST'])
-def handle_incoming_data():
-    data = request.json
-    print(data)
-    sender = data['entry'][0]['messaging'][0]['sender']['id']
-    print(sender)
-    message = data['entry'][0]['messaging'][0]['message']['text']
-    print(message)
-    datasetprocess(sender, message[::1])
- 
-    return "ok"
- 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shankoibito:pappussp@localhost/tiotsudatamap'
+
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    Geolocation = db.Column(db.String(120), unique=True)
+    UserName= db.Column(db.String)
+
+    def __init__(self, Geolocation):
+        self.Geolocation = Geolocation
+
+    def __repr__(self):
+        return '<Geolocation %r>' % self.Geolocation
+
+@app.route('/')
+def index():
+    return render_template('dataaccess.php')
+
  
 if __name__ == '__main__':
     app.run(debug=True)
 
-=======
-from mapbox import Datasets
-from flask import Flask, request
-import requests
 
-access_token="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
-
-datasets = Datasets() 
-
-app = Flask(__name__)
-@app.route('/', methods=['GET'])
-
-def datasetprocess(user_id, msg):
-    data = {
-        "recipient": {"id": user_id},
-        "message": {"text": msg}
-    }
-    datasets.update_feature('cjbphbl3008s833ntx1t5psea', 'feature-id', data)
-    #resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    #print(resp.content)
- 
- 
-@app.route('/', methods=['POST'])
-def handle_incoming_data():
-    data = request.json
-    print(data)
-    sender = data['entry'][0]['messaging'][0]['sender']['id']
-    print(sender)
-    message = data['entry'][0]['messaging'][0]['message']['text']
-    print(message)
-    datasetprocess(sender, message[::1])
- 
-    return "ok"
- 
- 
-if __name__ == '__main__':
-    app.run(debug=True)
-
->>>>>>> d6bedb31c4a4bdb0b05a27458ca73d455fb16e4d
-
-#datasets.list_features("cjbphbl3008s833ntx1t5psea").json()
