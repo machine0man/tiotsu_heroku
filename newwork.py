@@ -1,8 +1,8 @@
 
 from mapbox import Datasets
 from flask import Flask, render_template, request
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.heroku import Heroku
+from flask_sqlalchemy import SQLAlchemy
+from flask_heroku import Heroku
 from sqlalchemy import create_engine
 
 access_token="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
