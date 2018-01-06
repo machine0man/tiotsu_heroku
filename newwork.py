@@ -1,7 +1,7 @@
 
 from mapbox import Datasets
 from flask import Flask, render_template, request
-from flask.sqlalchemy import SQLAlchemy
+from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.heroku import Heroku
 from sqlalchemy import create_engine
 
