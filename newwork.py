@@ -29,7 +29,7 @@ class User(db.Model):
     def __repr__(self):
         return '<Geolocation %r>' % self.Geolocation
 
-@app.route('/',methods=['GET'])
+@app.route('/',methods=['GET','POST'])
 def index():
     def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form.get('Geolocation')
