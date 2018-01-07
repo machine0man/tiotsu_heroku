@@ -14,7 +14,7 @@ heroku = Heroku(app)
 db = SQLAlchemy(app)
 #engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shankoibito:pappussp@localhost/tiotsudatamap'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shankoibito:pappussp@localhost/tiotsudatamap'
 
 class User(db.Model):
     __tablename__ = "users"
