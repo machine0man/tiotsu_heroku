@@ -31,7 +31,11 @@ class User(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('dataaccess.php')
+    def GetGeolocationAndAddDatasetFeature():
+    Geolocation = request.form.get('Geolocation')
+    Username = request.form.get('Username')
+    feature = {'type': 'Feature','id':Username,'properties': {'Town': 'Testall'},'geometry':{'type':'Point','coordinates':[Geolocation]}}
+    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
 
  
 if __name__ == '__main__':
