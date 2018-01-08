@@ -30,8 +30,8 @@ class User(db.Model):
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form.get('Geolocation')
     Username = request.form.get('Username')
-    feature = {'type': 'Feature','id':Username,'properties': {'Home': 'Testall'},'geometry':{'type':'Point','coordinates':[Geolocation]}}
-    datasets.update_feature('cjbphbl3008s833ntx1t5psea',Username,feature)
+    feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest','Username'=Username}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
+    datasets.update_feature('cjbphbl3008s833ntx1t5psea','feature-id',feature)
  
 if __name__ == '__main__':
     app.run(debug=True)
