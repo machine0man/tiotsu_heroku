@@ -1,4 +1,4 @@
-MAPBOX_ACCESS_TOKEN="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
+MAPBOX_ACCESS_TOKEN="sk.eyJ1IjoicGFwcHVzc3AxIiwiYSI6ImNqYndrZ3RrMTI2eDIzM3BjaXFtY2gzdmcifQ.B2sQFFPWo5tBrvcsL9cDVQ"
 
 from mapbox import Datasets
 from flask import Flask, render_template, request
@@ -26,12 +26,15 @@ class User(db.Model):
     def __repr__(self):
         return '<Geolocation %r>' % self.Geolocation
 
-@app.route('/',methods=['GET'])
+@app.route('/',methods=['POST'])
 def GetGeolocationAndAddDatasetFeature():
-    Geolocation = request.form.get('Geolocation')
-    Username = request.form.get('Username')
-    feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest','Username'=Username}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
-    datasets.update_feature('cjbphbl3008s833ntx1t5psea','feature-id',feature)
+    Geolocation = request.form['Geolocation']
+    print(Geolocation + "hello")
+    Username = request.form['Username']
+    #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
+    feature = {'type': 'Feature', 'id': Username, 'properties': {'name': 'Insula Nulla'},'geometry': {Geolocation}}
+    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr','feature-id',feature)
+    return 'OK'
  
 if __name__ == '__main__':
     app.run(debug=True)
