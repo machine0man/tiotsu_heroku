@@ -32,7 +32,7 @@ def GetGeolocationAndAddDatasetFeature():
     print(Geolocation + "hello")
     Username = request.form['Username']
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
-    feature = {'type': 'Feature', 'id': Username, 'properties': {'name': 'Insula Nulla'},'geometry': {Geolocation}}
+    feature = {'type': 'Feature', 'id': Username, 'properties': {'name': 'Towntest'},'geometry': {Geolocation}}
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr','feature-id',feature)
     return 'OK'
  
