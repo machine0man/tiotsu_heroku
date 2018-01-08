@@ -1,5 +1,4 @@
-
-export MAPBOX_ACCESS_TOKEN="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
+MAPBOX_ACCESS_TOKEN="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
 
 from mapbox import Datasets
 from flask import Flask, render_template, request
@@ -7,10 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from sqlalchemy import create_engine
 
-
-datasets = Datasets()
 import os
-datasets.session.params['access_token'] == os.environ['MAPBOX_ACCESS_TOKEN']
+YOUR_ACCESS_TOKEN = os.environ['MAPBOX_ACCESS_TOKEN']
+datasets = Datasets(access_token=YOUR_ACCESS_TOKEN)
 
 app = Flask(__name__)
 heroku = Heroku(app)
