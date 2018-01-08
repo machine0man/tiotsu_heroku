@@ -6,9 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from sqlalchemy import create_engine
 
-import os
-YOUR_ACCESS_TOKEN = os.environ['MAPBOX_ACCESS_TOKEN']
-datasets = Datasets(access_token=YOUR_ACCESS_TOKEN)
+datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 
 app = Flask(__name__)
 heroku = Heroku(app)
@@ -33,7 +31,7 @@ def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form.get('Geolocation')
     Username = request.form.get('Username')
     feature = {'type': 'Feature','id':Username,'properties': {'Home': 'Testall'},'geometry':{'type':'Point','coordinates':[Geolocation]}}
-    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
+    datasets.update_feature('cjbphbl3008s833ntx1t5psea',Username,feature)
  
 if __name__ == '__main__':
     app.run(debug=True)
