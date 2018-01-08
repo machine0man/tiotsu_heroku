@@ -29,7 +29,7 @@ class User(db.Model):
 @app.route('/',methods=['POST'])
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
-    print(Geolocation + "hello")
+    print(Geolocation)
     Username = request.form['Username']
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
     feature = {'type': 'Feature', 'id': Username, 'properties': {'name': 'Towntest'},'geometry': {Geolocation}}
