@@ -1,21 +1,24 @@
+MAPBOX_ACCESS_TOKEN="sk.eyJ1IjoicGFwcHVzc3AxIiwiYSI6ImNqYndrZ3RrMTI2eDIzM3BjaXFtY2gzdmcifQ.B2sQFFPWo5tBrvcsL9cDVQ"
 
 from mapbox import Datasets
 from flask import Flask, render_template, request
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.heroku import Heroku
+from flask_sqlalchemy import SQLAlchemy
+from flask_heroku import Heroku
 from sqlalchemy import create_engine
+from mapbox import Uploader
 
-access_token="sk.eyJ1Ijoic2hhbmtvaWJpdG8iLCJhIjoiY2pidGk1NHVyMWhsNDJxcm5qMzk1NjdjbSJ9.eVgFTGreLyiND18CkqNS8w"
+service = Uploader(access_token=MAPBOX_ACCESS_TOKEN)
+from time import sleep
+from random import randint
 
-datasets = Datasets() 
+datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 
 app = Flask(__name__)
 heroku = Heroku(app)
 db = SQLAlchemy(app)
-engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
+#engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shankoibito:pappussp@localhost/tiotsudatamap'
-
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shankoibito:pappussp@localhost/tiotsudatamap'
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -28,10 +31,25 @@ class User(db.Model):
     def __repr__(self):
         return '<Geolocation %r>' % self.Geolocation
 
-@app.route('/')
-def index():
-    return render_template('dataaccess.php')
-
+@app.route('/',methods=['POST'])
+def GetGeolocationAndAddDatasetFeature():
+    Geolocation = request.form['Geolocation']
+    print(Geolocation)
+    Username = request.form['Username']
+    #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
+    #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
+    feature=eval(Geolocation)
+    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
+    with open('data.geojson', 'rb') as src:
+        upload_resp = service.upload(src, 'pappussp1.data')
+    if upload_resp.status_code == 422:
+        for i in range(5):
+            sleep(5)
+            with open('data.geojson', 'rb') as src:
+                upload_resp = service.upload(src, 'pappussp1.data')
+            if upload_resp.status_code != 422:
+                break
+    return "OK"
  
 if __name__ == '__main__':
     app.run(debug=True)
