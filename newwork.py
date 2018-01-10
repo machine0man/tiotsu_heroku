@@ -40,12 +40,12 @@ def GetGeolocationAndAddDatasetFeature():
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
-    with open('data.geojson', 'r' , encoding='utf-8' ) as src:
+    with open('data.geojson', 'rb') as src:
         upload_resp = service.upload(src, 'pappussp1.data')
     if upload_resp.status_code == 422:
         for i in range(5):
             sleep(5)
-            with open('data.geojson', 'r', encoding='utf-8') as src:
+            with open('data.geojson', 'rb') as src:
                 upload_resp = service.upload(src, 'pappussp1.data')
             if upload_resp.status_code != 422:
                 break
