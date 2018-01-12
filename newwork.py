@@ -41,12 +41,12 @@ def GetGeolocationAndAddDatasetFeature():
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
-    with urllib.request.urlopen('http://www.filehosting.org/file/download/718796/abaU2YQvWry5Y5di') as src:
+    with urllib.request.urlopen('http://www21.filehosting.org/01deebc6012f86ff6c7b2220aa459de2/data.geojson') as src:
         upload_resp = service.upload(src.read(), 'pappussp1.data')
     if upload_resp.status_code == 422:
         for i in range(5):
             sleep(5)
-            with urllib.request.urlopen('http://www.filehosting.org/file/download/718796/abaU2YQvWry5Y5di') as src:
+            with urllib.request.urlopen('http://www21.filehosting.org/01deebc6012f86ff6c7b2220aa459de2/data.geojson') as src:
                 upload_resp = service.upload(src.read(), 'pappussp1.data')
             if upload_resp.status_code != 422:
                 break
