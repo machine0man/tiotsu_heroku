@@ -31,6 +31,17 @@ class User(db.Model):
 
     def __repr__(self):
         return '<Geolocation %r>' % self.Geolocation
+    
+def TileSet():
+    with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
+        upload_resp = service.upload(src, 'pappussp1.data')
+    if upload_resp.status_code == 422:
+        for i in range(5):
+            sleep(5)
+            with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
+                upload_resp = service.upload(src, 'pappussp1.data')
+            if upload_resp.status_code != 422:
+                break
 
 @app.route('/',methods=['POST'])
 def GetGeolocationAndAddDatasetFeature():
@@ -41,15 +52,7 @@ def GetGeolocationAndAddDatasetFeature():
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
-    with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
-        upload_resp = service.upload(src, 'pappussp1.data')
-    if upload_resp.status_code == 422:
-        for i in range(5):
-            sleep(5)
-            with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
-                upload_resp = service.upload(src, 'pappussp1.data')
-            if upload_resp.status_code != 422:
-                break
+    TileSet()
     return "OK"
  
 if __name__ == '__main__':
