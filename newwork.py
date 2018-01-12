@@ -10,6 +10,7 @@ from mapbox import Uploader
 service = Uploader(access_token=MAPBOX_ACCESS_TOKEN)
 from time import sleep
 from random import randint
+import urllib.request
 
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 
@@ -40,13 +41,13 @@ def GetGeolocationAndAddDatasetFeature():
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
-    with open('data.geojson', 'rb') as src:
-        upload_resp = service.upload(src, 'pappussp1.data')
+    with urllib.request.urlopen('https://github.com/shankoibito/tiotsu_heroku/blob/master/data.geojson') as src:
+        upload_resp = service.upload(src.read(), 'pappussp1.data')
     if upload_resp.status_code == 422:
         for i in range(5):
             sleep(5)
-            with open('data.geojson', 'rb') as src:
-                upload_resp = service.upload(src, 'pappussp1.data')
+            with urllib.request.urlopen('https://github.com/shankoibito/tiotsu_heroku/blob/master/data.geojson') as src:
+                upload_resp = service.upload(src.read(), 'pappussp1.data')
             if upload_resp.status_code != 422:
                 break
     return "OK"
