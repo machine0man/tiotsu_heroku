@@ -42,12 +42,12 @@ def GetGeolocationAndAddDatasetFeature():
     feature=eval(Geolocation)
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
     with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
-        upload_resp = service.upload(src.read(), 'pappussp1.data')
+        upload_resp = service.upload(src, 'pappussp1.data')
     if upload_resp.status_code == 422:
         for i in range(5):
             sleep(5)
             with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
-                upload_resp = service.upload(src.read(), 'pappussp1.data')
+                upload_resp = service.upload(src, 'pappussp1.data')
             if upload_resp.status_code != 422:
                 break
     return "OK"
