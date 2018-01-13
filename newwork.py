@@ -35,13 +35,8 @@ class User(db.Model):
 def TileSet():
     with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
         upload_resp = service.upload(src, 'pappussp1.data')
-    if upload_resp.status_code == 422:
-        for i in range(5):
-            sleep(5)
-            with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
-                upload_resp = service.upload(src, 'pappussp1.data')
-            if upload_resp.status_code != 422:
-                break
+        return "OK"
+    return "OK"
 
 @app.route('/',methods=['POST'])
 def GetGeolocationAndAddDatasetFeature():
