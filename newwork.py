@@ -29,7 +29,7 @@ class User(db.Model):
         return '<Geolocation %r>' % self.Geolocation
     
 def TileSet():
-    r = requests.post('https://tiotsu-js.herokuapp.com/', data = {'UserName':Username})
+    r = requests.post('https://tiotsu-js.herokuapp.com/', data = {'UserName':'Username'})
     return "OK"
 
 @app.route('/',methods=['POST'])
