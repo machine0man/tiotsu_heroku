@@ -5,12 +5,8 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from sqlalchemy import create_engine
-from mapbox import Uploader
+import requests
 
-service = Uploader(access_token=MAPBOX_ACCESS_TOKEN)
-from time import sleep
-from random import randint
-import urllib.request
 
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 
@@ -33,10 +29,7 @@ class User(db.Model):
         return '<Geolocation %r>' % self.Geolocation
     
 def TileSet():
-    with urllib.request.urlopen('https://drive.google.com/uc?export=download&id=149UYcRpfqVfga4nQk9ODnTgpB4hqHRqG') as src:
-        upload_resp = service.upload(src, 'pappussp1.data')
-        print(upload_resp.status_code)
-        return "OK"
+    r = requests.post('https://tiotsu-js.herokuapp.com/', data = {'UserName':Username})
     return "OK"
 
 @app.route('/',methods=['POST'])
