@@ -12,7 +12,7 @@ datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 
 app = Flask(__name__)
 heroku = Heroku(app)
-db = SQLAlchemy(newwprk)
+db = SQLAlchemy(newwork)
 engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shankoibito:pappussp@localhost/tiotsudatamap'
