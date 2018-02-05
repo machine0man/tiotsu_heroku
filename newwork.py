@@ -11,7 +11,7 @@ import requests
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 
 app = Flask(__name__)
-heroku = Heroku(newwork)
+heroku = Heroku(app)
 db = SQLAlchemy(newwprk)
 engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
