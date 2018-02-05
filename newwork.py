@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from sqlalchemy import create_engine
 import requests
+import os
 
 
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
