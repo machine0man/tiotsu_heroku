@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from sqlalchemy import create_engine
 import requests
-import os
 
 
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
@@ -14,9 +13,9 @@ datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
 app = Flask(__name__)
 heroku = Heroku(app)
 db = SQLAlchemy(app)
-engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
+#engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['postgresql://shankoibito:pappussp@localhost/tiotsudatamap']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
