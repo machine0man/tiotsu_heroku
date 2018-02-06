@@ -16,17 +16,48 @@ db = SQLAlchemy(app)
 #engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
-class User(db.Model):
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    Geolocation = db.Column(db.String(120), unique=True)
-    UserName= db.Column(db.String)
+def getdatafromtiotsu():
+    username=requests.form['username']
+    email=requests.form['email']
+    yunk=requests.form['yunk']
+    aura=requests.form['aura']
+    houselevel=requests.form['houselevel']
+    mylocation=requests.form['mylocation']
 
-    def __init__(self, Geolocation):
-        self.Geolocation = Geolocation
+def cleardatafromtiotsu():
+    username=null
+    email=null
+    yunk=null
+    aura=null
+    houselevel=null
+    mylocation=null
+    return "OK"
+
+class tiotsu_users(db.Model):
+    __tablename__ = "tiotsu_users"
+    email = db.Column(db.String(120),nullable=False, primary_key=True)
+    firstname = db.Column(db.String(100),nullable=False)
+    yunk = db.Column(db.String(100))
+    level = db.Column(db.String(50),nullable=False)
+    aura = db.Column(db.String(100))
+    houselevel = db.Column(db.String(50))
+    mylocation = db.Column(db.String(150),nullable=False,unique=True)
+
+    def __init__(self, email):
+        self.email = email
 
     def __repr__(self):
-        return '<Geolocation %r>' % self.Geolocation
+        return '<email %r>' % self.email
+
+    
+@app.route('/user',methods=['POST'])
+def createanduploaddata():
+    getdatafromtiotsu()
+    newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation)
+    db.session.add(newuser)
+    db.session.commit()
+    cleardatafromtiotsu()
+    return "OK"
     
 def TileSet():
     r = requests.post('https://tiotsu-js.herokuapp.com/', data = {'UserName':'Username'})
