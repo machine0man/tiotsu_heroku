@@ -75,6 +75,7 @@ def senddatatotiotsu():
         houselevelt = senddata.aura
     else:
         emailattack=request.form['emailattack']
+        print(emailattack)
         senddatatiotsu()
     return "OK"
 
