@@ -77,7 +77,7 @@ def senddatatotiotsu():
         emailattack=request.form['emailattack']
         print(emailattack)
         senddatatiotsu()
-    return "OK"
+    #return "OK"
 
 @app.route('/alreadyuser',methods=['POST'])
 def alreadyuserupdatedata():
