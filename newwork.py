@@ -65,16 +65,11 @@ def createanduploaddata():
     db.session.commit()
     cleardatafromtiotsu()
     return "OK"
-def emailattack():
-     if (request.method == "POST"):
-            emailattack=request.form['emailattack']
-            return emailattack
 
 @app.route('/tiotsudataget',methods=['GET','POST'])
 def senddatatotiotsu():
-    if (request.method == "GET"):
-        return emailattack()
-    return "OK"
+    emailattack=request.form['emailattack']
+    return emailattack
 
 @app.route('/alreadyuser',methods=['POST'])
 def alreadyuserupdatedata():
