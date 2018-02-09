@@ -68,10 +68,9 @@ def createanduploaddata():
 
 @app.route('/tiotsudataget',methods=['GET','POST'])
 def senddatatotiotsu():
-    if (request.method == "POST"):
-        emailattack=request.form['emailattack']
-    else:
-        emailattack = "test"
+    if (request.method == "GET"):
+        if (request.method == "POST"):
+            emailattack=request.form['emailattack']
         return emailattack
     return "OK"
 
