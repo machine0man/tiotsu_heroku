@@ -43,14 +43,20 @@ class tiotsu_users(db.Model):
     houselevel = db.Column(db.String(50))
     mylocation = db.Column(db.String(150),nullable=False,unique=True)
 
-    def __init__(self, email):
+    def __init__(self, email,firstname,yunk,level,aura,houselevel,mylocation):
         self.email = email
+        self.firstname = firstname
+        self.yunk = yunk
+        self.level = level
+        self.aura = aura
+        self.houselevel = houselevel
+        self.mylocation = mylocation
 
     def __repr__(self):
         return '<email %r>' % self.email
 
     
-@app.route('/user',methods=['POST'])
+@app.route('/newuser',methods=['POST'])
 def createanduploaddata():
     getdatafromtiotsu()
     newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation)
@@ -58,7 +64,32 @@ def createanduploaddata():
     db.session.commit()
     cleardatafromtiotsu()
     return "OK"
-    
+
+@app.route('/tiotsudataget',methods=['GET','POST'])
+def senddatatotiotsu():
+    if (request.method == "GET"):
+        senddata = tiotsu_users.query.filter_by(email = emailattack).first()
+        yunkt = senddata.yunk
+        levelt = senddata.level
+        aurat = senddata.aura
+        houselevelt = senddata.aura
+    else:
+        emailattack=requests.form['emailattack']
+        senddatatiotsu()
+    return "OK"
+
+@app.route('/alreadyuser',methods=['POST'])
+def alreadyuserupdatedata():
+    getdatafromtiotsu()
+    update_this = tiotsu_users.query.filter_by(email = email).first()
+    update_this.yunk = yunk
+    update_this.level = level
+    update_this.aura = aura
+    update_this.houselevel = houselevel
+    db.session.commit()
+    cleardatafromtiotsu()
+    return "OK"
+
 def TileSet():
     r = requests.post('https://tiotsu-js.herokuapp.com/', data = {'UserName':'Username'})
     return "OK"
