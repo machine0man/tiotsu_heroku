@@ -68,15 +68,9 @@ def createanduploaddata():
 @app.route('/tiotsudataget',methods=['GET','POST'])
 def senddatatotiotsu():
     if (request.method == "GET"):
-        senddata = tiotsu_users.query.filter_by(email = emailattack).first()
-        yunkt = senddata.yunk
-        levelt = senddata.level
-        aurat = senddata.aura
-        houselevelt = senddata.aura
+        return emailattack
     else:
         emailattack=request.form['emailattack']
-        print(emailattack)
-        senddatatotiotsu()
     return "OK"
 
 @app.route('/alreadyuser',methods=['POST'])
