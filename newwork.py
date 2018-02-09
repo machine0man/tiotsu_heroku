@@ -9,7 +9,7 @@ import requests
 
 
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
-string emailattack
+emailattack = "test"
 
 app = Flask(__name__)
 heroku = Heroku(app)
