@@ -71,6 +71,7 @@ def senddatatotiotsu():
     if (request.method == "POST"):
         emailattack=request.form['emailattack']
     else:
+        emailattack = "test"
         return emailattack
     return "OK"
 
