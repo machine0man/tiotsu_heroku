@@ -70,12 +70,12 @@ def senddatatotiotsu():
     if (request.method == "POST"):
         emailattack=request.form['emailattack']
         mymail=request.form['helpmail']
-        update_this = tiotsu_users.query.filter_by(email = myemail).first()
+        update_this = tiotsu_users.query.filter_by(email = mymail).first()
         update_this.help = emailattack
         db.session.commit()
     else:
         mymail=request.form['helpmail']
-        update_this = tiotsu_users.query.filter_by(email = myemail).first()
+        update_this = tiotsu_users.query.filter_by(email = mymail).first()
         emailattack2 = update_this.help
         return emailattack2
     return "OK"
