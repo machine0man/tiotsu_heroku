@@ -42,8 +42,9 @@ class tiotsu_users(db.Model):
     aura = db.Column(db.String(100))
     houselevel = db.Column(db.String(50))
     mylocation = db.Column(db.String(150),nullable=False,unique=True)
+    help = db.Column(db.String(100))
 
-    def __init__(self, email,firstname,yunk,level,aura,houselevel,mylocation):
+    def __init__(self, email,firstname,yunk,level,aura,houselevel,mylocation,help):
         self.email = email
         self.firstname = firstname
         self.yunk = yunk
@@ -51,6 +52,7 @@ class tiotsu_users(db.Model):
         self.aura = aura
         self.houselevel = houselevel
         self.mylocation = mylocation
+        self.help = help
 
     def __repr__(self):
         return '<email %r>' % self.email
