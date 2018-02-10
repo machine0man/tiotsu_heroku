@@ -9,7 +9,6 @@ import requests
 
 
 datasets = Datasets(access_token=MAPBOX_ACCESS_TOKEN)
-emailattack = "test"
 
 app = Flask(__name__)
 heroku = Heroku(app)
@@ -68,8 +67,18 @@ def createanduploaddata():
 
 @app.route('/tiotsudataget',methods=['GET','POST'])
 def senddatatotiotsu():
-    emailattack=request.form['emailattack']
-    return emailattack
+    if (request.method == "POST"):
+        emailattack=request.form['emailattack']
+        mymail=request.form['helpmail']
+        update_this = tiotsu_users.query.filter_by(email = myemail).first()
+        update_this.help = emailattack
+        db.session.commit()
+    else:
+        mymail=request.form['helpmail']
+        update_this = tiotsu_users.query.filter_by(email = myemail).first()
+        emailattack2 = update_this.help
+        return emailattack2
+    return "OK"
 
 @app.route('/alreadyuser',methods=['POST'])
 def alreadyuserupdatedata():
