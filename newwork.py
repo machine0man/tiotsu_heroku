@@ -112,6 +112,7 @@ def GetGeolocationAndAddDatasetFeature():
     aura=request.form['aura']
     houselevel=request.form['houselevel']
     mylocation=request.form['Geolocation']
+    level=request.form['level']
     print(email)
     update_this = tiotsu_users.query.filter_by(email = email).first()
     if(update_this):
