@@ -113,6 +113,7 @@ def GetGeolocationAndAddDatasetFeature():
     houselevel=request.form['houselevel']
     mylocation=request.form['Geolocation']
     level=request.form['level']
+    help="help"
     print(email)
     update_this = tiotsu_users.query.filter_by(email = email).first()
     if(update_this):
@@ -121,7 +122,7 @@ def GetGeolocationAndAddDatasetFeature():
         update_this.houselevel = houselevel
         db.session.commit()
     else:
-        newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation)
+        newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation,help)
         db.session.add(newuser)
         db.session.commit()
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
