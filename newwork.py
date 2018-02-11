@@ -111,7 +111,7 @@ def GetGeolocationAndAddDatasetFeature():
     yunk=request.form['yunk']
     aura=request.form['aura']
     houselevel=request.form['houselevel']
-    mylocation=request.form['Geolocation']
+    mylocation=request.form['mylocation']
     level=request.form['level']
     help="help"
     print(email)
