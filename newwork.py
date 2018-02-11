@@ -106,13 +106,23 @@ def TileSet():
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
     print(Geolocation)
-    getdatafromtiotsu()
+    firstname=request.form['username']
+    email=request.form['mymail']
+    yunk=request.form['yunk']
+    aura=request.form['aura']
+    houselevel=request.form['houselevel']
+    mylocation=request.form['Geolocation']
     print(email)
     update_this = tiotsu_users.query.filter_by(email = email).first()
     if(update_this):
-        return "OK"
+        update_this.yunk = yunk
+        update_this.aura = aura
+        update_this.houselevel = houselevel
+        db.session.commit()
     else:
-        createanduploaddata()
+        newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation)
+        db.session.add(newuser)
+        db.session.commit()
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
