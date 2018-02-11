@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
 def getdatafromtiotsu():
     firstname=request.form['username']
-    email=request.form['myemail']
+    email=request.form['mymail']
     yunk=request.form['yunk']
     aura=request.form['aura']
     houselevel=request.form['houselevel']
@@ -106,12 +106,7 @@ def TileSet():
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
     print(Geolocation)
-    firstname=request.form['username']
-    email=request.form['myemail']
-    yunk=request.form['yunk']
-    aura=request.form['aura']
-    houselevel=request.form['houselevel']
-    mylocation=request.form['Geolocation']
+    getdatafromtiotsu()
     print(email)
     update_this = tiotsu_users.query.filter_by(email = email).first()
     if(update_this):
