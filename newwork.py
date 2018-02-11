@@ -17,15 +17,15 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
 def getdatafromtiotsu():
-    username=request.form['username']
-    email=request.form['email']
+    firstname=request.form['username']
+    email=request.form['myemail']
     yunk=request.form['yunk']
     aura=request.form['aura']
     houselevel=request.form['houselevel']
-    mylocation=request.form['mylocation']
+    mylocation=request.form['Geolocation']
 
 def cleardatafromtiotsu():
-    username=null
+    firstname=null
     email=null
     yunk=null
     aura=null
@@ -57,24 +57,28 @@ class tiotsu_users(db.Model):
     def __repr__(self):
         return '<email %r>' % self.email
 
-    
-@app.route('/newuser',methods=['POST'])
 def createanduploaddata():
-    getdatafromtiotsu()
-    newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation)
-    db.session.add(newuser)
-    db.session.commit()
-    cleardatafromtiotsu()
+    update_this = tiotsu_users.query.filter_by(email = email).first()
+    if(update_this):
+        update_this.yunk = yunk
+        update_this.aura = aura
+        update_this.houselevel = houselevel
+        db.session.commit()
+    else:
+        newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation)
+        db.session.add(newuser)
+        db.session.commit()
     return "OK"
 
 @app.route('/tiotsudataget',methods=['GET','POST'])
 def senddatatotiotsu():
     if (request.method == "POST"):
         emailattack=request.form['emailattack']
-        mymail=request.form['helpmail']
-        update_this = tiotsu_users.query.filter_by(email = mymail).first()
-        update_this.help = emailattack
-        db.session.commit()
+        if(emailattack):
+            mymail=request.form['helpmail']
+            update_this = tiotsu_users.query.filter_by(email = mymail).first()
+            update_this.help = emailattack
+            db.session.commit()
     else:
         mymail=request.form['helpmail']
         update_this = tiotsu_users.query.filter_by(email = mymail).first()
@@ -102,11 +106,14 @@ def TileSet():
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
     print(Geolocation)
-    Username = request.form['Username']
+    getdatafromtiotsu()
+    update_this = tiotsu_users.query.filter_by(email = email).first()
+    if(!update_this):
+        createanduploaddata()
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
-    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',Username,feature)
+    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',email,feature)
     TileSet()
     return "OK"
  
