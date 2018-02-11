@@ -108,7 +108,9 @@ def GetGeolocationAndAddDatasetFeature():
     print(Geolocation)
     getdatafromtiotsu()
     update_this = tiotsu_users.query.filter_by(email = email).first()
-    if(!update_this):
+    if(update_this):
+        return "OK"
+    else:
         createanduploaddata()
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
