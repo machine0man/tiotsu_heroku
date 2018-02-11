@@ -106,7 +106,12 @@ def TileSet():
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
     print(Geolocation)
-    getdatafromtiotsu()
+    firstname=request.form['username']
+    email=request.form['myemail']
+    yunk=request.form['yunk']
+    aura=request.form['aura']
+    houselevel=request.form['houselevel']
+    mylocation=request.form['Geolocation']
     print(email)
     update_this = tiotsu_users.query.filter_by(email = email).first()
     if(update_this):
