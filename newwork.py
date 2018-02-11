@@ -107,6 +107,7 @@ def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
     print(Geolocation)
     getdatafromtiotsu()
+    print(email)
     update_this = tiotsu_users.query.filter_by(email = email).first()
     if(update_this):
         return "OK"
