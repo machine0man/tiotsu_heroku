@@ -102,7 +102,7 @@ def TileSet():
     r = requests.post('https://tiotsu-js.herokuapp.com/', data = {'UserName':'Username'})
     return "OK"
 
-@app.route('/main',methods=['POST'])
+@app.route('/',methods=['POST'])
 def GetGeolocationAndAddDatasetFeature():
     Geolocation = request.form['Geolocation']
     print(Geolocation)
