@@ -80,8 +80,7 @@ def before_request():
 
 @app.route('/tiotsudatasend',methods=['GET'])
 def senddatatotiotsu():
-    before_request()
-    mymail=g.user#session['emailattacksession']
+    mymail=session['emailattacksession']
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
         auraattack=update_this.aura
@@ -94,6 +93,7 @@ def senddatatotiotsu():
 @app.route('/tiotsudataget',methods=['POST'])
 def getattackdatafromtiotsu():
     if (request.method == "POST"):
+        session.pop('emailattacksession', None) 
         emailattack=request.form['emailattack']
         session['emailattacksession']=emailattack 
         print(session['emailattacksession'])
