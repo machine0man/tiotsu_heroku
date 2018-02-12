@@ -125,12 +125,12 @@ def GetGeolocationAndAddDatasetFeature():
         newuser=tiotsu_users(email,firstname,yunk,level,aura,houselevel,mylocation,help)
         db.session.add(newuser)
         db.session.commit()
+        feature=eval(Geolocation)
+        datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',email,feature)
+        print("DatasetUploaded")
+        TileSet()
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
-    feature=eval(Geolocation)
-    datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',email,feature)
-    print("DatasetUploaded")
-    TileSet()
     return "OK"
  
 if __name__ == '__main__':
