@@ -74,9 +74,9 @@ def createanduploaddata():
 def senddatatotiotsu():
     if (request.method == "POST"):
         emailattack=request.form['emailattack']
-        Session['emailattacksession']=emailattack
+        session['emailattacksession']=emailattack
     else:
-        mymail=Session['emailattacksession']
+        mymail=session['emailattacksession']
         update_this = tiotsu_users.query.filter_by(email = mymail).first()
         if(update_this):
             auraattack=update_this.aura
