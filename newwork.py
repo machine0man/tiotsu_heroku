@@ -71,11 +71,16 @@ def createanduploaddata():
         db.session.commit()
     return "OK"
 
+@app.before_request
+def before_request():
+    g.user=None
+    if 'emailattacksession' in session:
+        g.user =session['emailattacksession']
+        print (g.user)
+
 @app.route('/tiotsudatasend',methods=['GET'])
 def senddatatotiotsu():
-    if 'emailattacksession' in session:
-        print(session['emailattacksession'])
-    mymail=session['emailattacksession']
+    mymail=g.user#session['emailattacksession']
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
         auraattack=update_this.aura
