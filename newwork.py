@@ -1,4 +1,5 @@
 MAPBOX_ACCESS_TOKEN="sk.eyJ1IjoicGFwcHVzc3AxIiwiYSI6ImNqYndrZ3RrMTI2eDIzM3BjaXFtY2gzdmcifQ.B2sQFFPWo5tBrvcsL9cDVQ"
+app.secret_key = 'shanbirsinghneerajbansalharjotsingh'
 
 from mapbox import Datasets
 from flask import Flask, session, request
@@ -135,7 +136,6 @@ def GetGeolocationAndAddDatasetFeature():
     return "OK"
  
 if __name__ == '__main__':
-    app.secret_key = 'shanbirsinghneerajbansalharjotsingh'
     app.run(debug=True)
 
 
