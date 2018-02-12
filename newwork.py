@@ -128,7 +128,9 @@ def GetGeolocationAndAddDatasetFeature():
     #feature = {'type': 'FeatureCollection', 'features': [{'type': 'Feature', 'properties': {'MyHouse': 'Towntest'}, 'geometry': {'coordinates': [Geolocation], 'type': 'Point'}, 'id': 'feature-id'}]}
     #feature = {"type": "Feature", "id": Username, "properties": {'name": "Towntest"},"geometry": {Geolocation}}
     feature=eval(Geolocation)
+    print("DatasetNotUploaded")
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',email,feature)
+    rint("DatasetUploaded")
     TileSet()
     return "OK"
  
