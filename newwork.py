@@ -130,7 +130,7 @@ def GetGeolocationAndAddDatasetFeature():
     feature=Geolocation
     print("DatasetNotUploaded")
     datasets.update_feature('cjbwkjod422u233nx1xp8ltzr',email,feature)
-    rint("DatasetUploaded")
+    print("DatasetUploaded")
     TileSet()
     return "OK"
  
