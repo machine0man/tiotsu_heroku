@@ -86,10 +86,9 @@ def senddatatotiotsu():
         auraattack=update_this.aura
         firstnameattack=update_this.firstname
         yunkattack=update_this.yunk
-        tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
-        session.pop('emailattacksession', None)
-        return tiotsudata
-    return "OK"
+        session.pop('emailattacksession', None) 
+    tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
+    return tiotsudata
 
 @app.route('/tiotsudataget',methods=['POST'])
 def getattackdatafromtiotsu():
