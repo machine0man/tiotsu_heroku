@@ -73,7 +73,7 @@ def createanduploaddata():
 
 @app.route('/tiotsudatasend',methods=['GET','POST'])
 def senddatatotiotsu():
-    mymail=session['emailattacksession']
+    mymail=format(session['emailattacksession'])
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
         auraattack=update_this.aura
