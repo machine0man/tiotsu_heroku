@@ -88,8 +88,8 @@ def senddatatotiotsu():
 def getattackdatafromtiotsu():
     if (request.method == "POST"):
         emailattack=request.form['emailattack']
-        session['emailattacksession']=0
-        session['emailattacksession']=emailattack   
+        session['emailattacksession']=emailattack 
+        print(session['emailattacksession'])
     return "OK"
 
 @app.route('/alreadyuser',methods=['POST'])
