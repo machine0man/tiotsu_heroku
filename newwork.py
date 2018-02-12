@@ -80,6 +80,7 @@ def before_request():
 
 @app.route('/tiotsudatasend',methods=['GET'])
 def senddatatotiotsu():
+    before_request()
     mymail=g.user#session['emailattacksession']
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
