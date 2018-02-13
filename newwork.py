@@ -17,6 +17,11 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
 app.config['SECRET_KEY'] = 'oh_so_secret'
+
+@app.before_request
+def session_management():
+    # make the session last indefinitely until it is cleared
+    session.permanent = True
 def getdatafromtiotsu():
     firstname=request.form['username']
     email=request.form['mymail']
@@ -80,14 +85,15 @@ def senddatatotiotsu():
         auraattack=update_this.aura
         firstnameattack=update_this.firstname
         yunkattack=update_this.yunk
-        session.pop('emailattacksession', None) 
+        session.pop('emailattacksession', None)
+        session.clear()
     tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
     return tiotsudata
 
 @app.route('/tiotsudataget',methods=['POST'])
 def getattackdatafromtiotsu():
     if (request.method == "POST"):
-        session.pop('emailattacksession', None) 
+        session.clear() 
         emailattack=request.form['emailattack']
         session['emailattacksession']=emailattack
         print(session['emailattacksession'])
