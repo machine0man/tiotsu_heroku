@@ -89,6 +89,7 @@ def getattackdatafromtiotsu():
     if (request.method == "POST"):
         session.pop('emailattacksession', None) 
         emailattack=request.form['emailattack']
+        session{}
         session['emailattacksession']=emailattack
         print(session['emailattacksession'])
     return "OK"
