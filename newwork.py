@@ -78,8 +78,9 @@ def senddatatotiotsu(mymail):
     if(update_this):
         auraattack=update_this.aura
         firstnameattack=update_this.firstname
-        yunkattack=update_this.yunk 
-    tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
+        yunkattack=update_this.yunk
+        houselevelattack=update_this.houselevel
+    tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack+"\r\n"+houselevelattack
     print(tiotsudata)
     return tiotsudata
 
