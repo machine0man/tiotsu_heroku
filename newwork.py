@@ -79,16 +79,17 @@ def createanduploaddata():
 
 #@app.route('/tiotsudatasend',methods=['GET'])
 def senddatatotiotsu():
-    mymail=session['emailattacksession']
-    update_this = tiotsu_users.query.filter_by(email = mymail).first()
-    if(update_this):
-        auraattack=update_this.aura
-        firstnameattack=update_this.firstname
-        yunkattack=update_this.yunk
-        session.pop('emailattacksession', None)
-        session.clear()
-    tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
-    return tiotsudata
+    if (request.method=='GET'):
+        mymail=session['emailattacksession']
+        update_this = tiotsu_users.query.filter_by(email = mymail).first()
+        if(update_this):
+            auraattack=update_this.aura
+            firstnameattack=update_this.firstname
+            yunkattack=update_this.yunk
+            session.pop('emailattacksession', None)
+            session.clear()
+        tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
+        return tiotsudata
 
 @app.route('/tiotsudataget',methods=['GET','POST'])
 def getattackdatafromtiotsu():
@@ -97,7 +98,7 @@ def getattackdatafromtiotsu():
         emailattack=request.form['emailattack']
         session['emailattacksession']=emailattack
         print(session['emailattacksession'])
-    return if (request.method=='GET'){senddatatotiotsu()}
+    return senddatatotiotsu()
 
 @app.route('/alreadyuser',methods=['POST'])
 def alreadyuserupdatedata():
