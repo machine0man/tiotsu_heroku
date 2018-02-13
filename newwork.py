@@ -1,7 +1,7 @@
 MAPBOX_ACCESS_TOKEN="sk.eyJ1IjoicGFwcHVzc3AxIiwiYSI6ImNqYndrZ3RrMTI2eDIzM3BjaXFtY2gzdmcifQ.B2sQFFPWo5tBrvcsL9cDVQ"
 
 from mapbox import Datasets
-from flask import Flask, session, request
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 from sqlalchemy import create_engine
@@ -72,25 +72,21 @@ def createanduploaddata():
     return "OK"
 
 
-@app.route('/tiotsudatasend',methods=['GET'])
-def senddatatotiotsu():
-    mymail=session['emailattacksession']
+@app.route('/tiotsudatasend/<mymail>',methods=['GET'])
+def senddatatotiotsu(mymail):
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
         auraattack=update_this.aura
         firstnameattack=update_this.firstname
-        yunkattack=update_this.yunk
-        session.pop('emailattacksession', None) 
+        yunkattack=update_this.yunk 
     tiotsudata=auraattack+"\r\n"+firstnameattack+"\r\n"+yunkattack
+    print(tiotsudata)
     return tiotsudata
 
 @app.route('/tiotsudataget',methods=['POST'])
 def getattackdatafromtiotsu():
     if (request.method == "POST"):
-        session.pop('emailattacksession', None) 
         emailattack=request.form['emailattack']
-        session['emailattacksession']=emailattack
-        print(session['emailattacksession'])
     return "OK"
 
 @app.route('/alreadyuser',methods=['POST'])
