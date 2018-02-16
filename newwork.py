@@ -74,7 +74,7 @@ def createanduploaddata():
     return "OK"
 
 @app.route('/playerdatacheck/<mymail>',methods=['GET'])
-def senddatatotiotsu(mymail):
+def playerdatacheck(mymail):
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
         playerstatus=0
