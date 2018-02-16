@@ -71,6 +71,15 @@ def createanduploaddata():
         db.session.commit()
     return "OK"
 
+@app.route('/playerdatacheck/<mymail>',methods=['GET'])
+def senddatatotiotsu(mymail):
+    update_this = tiotsu_users.query.filter_by(email = mymail).first()
+    if(update_this):
+        playerstatus=1
+    esle:
+        playerstatus=0
+    print(playerstatus)
+    return playerstatus
 
 @app.route('/tiotsudatasend/<mymail>',methods=['GET'])
 def senddatatotiotsu(mymail):
