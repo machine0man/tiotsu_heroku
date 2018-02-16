@@ -25,14 +25,16 @@ def getdatafromtiotsu():
     houselevel=request.form['houselevel']
     mylocation=request.form['Geolocation']
 
-def cleardatafromtiotsu():
-    firstname=null
-    email=null
-    yunk=null
-    aura=null
-    houselevel=null
-    mylocation=null
-    return "OK"
+@app.route('/windataupdate',methods=['POST'])
+def windataupdate():
+    email=request.form['mymail']
+    yunk=request.form['yunk']
+    aura=request.form['aura']
+    update_this = tiotsu_users.query.filter_by(email = email).first()
+    if(update_this):
+        update_this.yunk = yunk
+        update_this.aura = aura
+        db.session.commit()
 
 class tiotsu_users(db.Model):
     __tablename__ = "tiotsu_users"
@@ -75,9 +77,9 @@ def createanduploaddata():
 def senddatatotiotsu(mymail):
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
-        playerstatus=1
-    esle:
         playerstatus=0
+    esle:
+        playerstatus=1
     print(playerstatus)
     return playerstatus
 
