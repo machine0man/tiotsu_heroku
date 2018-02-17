@@ -27,7 +27,7 @@ def getdatafromtiotsu():
 
 @app.route('/windataupdate',methods=['POST'])
 def windataupdate():
-    email=request.form['mymail']
+    email=request.form['mail']
     yunk=request.form['yunk']
     aura=request.form['aura']
     update_this = tiotsu_users.query.filter_by(email = email).first()
@@ -77,9 +77,9 @@ def createanduploaddata():
 def playerdatacheck(mymail):
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
-        playerstatus="0"
+        playerstatus=0
     else:
-        playerstatus="1"
+        playerstatus=1
     print(playerstatus)
     return playerstatus
 
