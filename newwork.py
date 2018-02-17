@@ -77,9 +77,9 @@ def createanduploaddata():
 def playerdatacheck(mymail):
     update_this = tiotsu_users.query.filter_by(email = mymail).first()
     if(update_this):
-        playerstatus=0
+        playerstatus="0"
     else:
-        playerstatus=1
+        playerstatus="1"
     print(playerstatus)
     return playerstatus
 
