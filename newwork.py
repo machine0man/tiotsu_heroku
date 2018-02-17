@@ -27,7 +27,7 @@ def getdatafromtiotsu():
 
 @app.route('/windataupdate',methods=['POST'])
 def windataupdate():
-    email=request.form['mail']
+    email=request.form['mymail']
     yunk=request.form['yunk']
     aura=request.form['aura']
     update_this = tiotsu_users.query.filter_by(email = email).first()
