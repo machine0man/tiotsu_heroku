@@ -38,6 +38,7 @@ def windataupdate():
         update_this.yunk = yunk
         update_this.houselevel = houselevel
         db.session.commit()
+    return "OK"
 
 @app.route('/windataupdate',methods=['POST'])
 def windataupdate():
@@ -52,6 +53,7 @@ def windataupdate():
         update_this.yunk = yunk
         update_this.aura = aura
         db.session.commit()
+    return "OK"
 
 class tiotsu_users(db.Model):
     __tablename__ = "tiotsu_users"
