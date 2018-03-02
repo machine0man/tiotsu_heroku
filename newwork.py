@@ -26,7 +26,7 @@ def getdatafromtiotsu():
     mylocation=request.form['Geolocation']
 
 @app.route('/dealsdataupdate',methods=['POST'])
-def windataupdate():
+def dealsdataupdate():
     email=request.form['mymail']
     print(email)
     yunk=request.form['yunk']
