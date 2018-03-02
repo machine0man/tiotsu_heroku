@@ -25,6 +25,20 @@ def getdatafromtiotsu():
     houselevel=request.form['houselevel']
     mylocation=request.form['Geolocation']
 
+@app.route('/dealsdataupdate',methods=['POST'])
+def windataupdate():
+    email=request.form['mymail']
+    print(email)
+    yunk=request.form['yunk']
+    print(yunk)
+    houselevel=request.form['houselevel']
+    print(houselevel)
+    update_this = tiotsu_users.query.filter_by(email = email).first()
+    if(update_this):
+        update_this.yunk = yunk
+        update_this.houselevel = houselevel
+        db.session.commit()
+
 @app.route('/windataupdate',methods=['POST'])
 def windataupdate():
     email=request.form['mymail']
@@ -85,6 +99,15 @@ def playerdatacheck(mymail):
         playerstatus="1"
     print(playerstatus)
     return playerstatus
+
+@app.route('/tiotsulocationcheck/<location>',method=['GET'])
+def checklocationuniqueness(location):
+    update_this = tiotsu_users.query.filter_by(mylocation = location).first()
+    if(update_this):
+        locationstatus="0"
+    else:
+        locationstatus = "1"
+    return locationstatus
 
 @app.route('/tiotsudatasend/<mymail>',methods=['GET'])
 def senddatatotiotsu(mymail):
