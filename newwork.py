@@ -103,7 +103,7 @@ def playerdatacheck(mymail):
     print(playerstatus)
     return playerstatus
 
-@app.route('/tiotsulocationcheck/<location>',method=['GET'])
+@app.route('/tiotsulocationcheck/<location>',methods=['GET'])
 def checklocationuniqueness(location):
     update_this = tiotsu_users.query.filter_by(mylocation = location).first()
     if(update_this):
