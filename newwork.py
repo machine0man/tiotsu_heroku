@@ -17,6 +17,31 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
 app.config['SECRET_KEY'] = 'oh_so_secret'
+
+class tiotsu_users(db.Model):
+    __tablename__ = "tiotsu_users"
+    email = db.Column(db.String(120),nullable=False, primary_key=True)
+    firstname = db.Column(db.String(100),nullable=False)
+    yunk = db.Column(db.String(100))
+    level = db.Column(db.String(50),nullable=False)
+    aura = db.Column(db.String(100))
+    houselevel = db.Column(db.String(50))
+    mylocation = db.Column(db.String(150),nullable=False,unique=True)
+    help = db.Column(db.String(100))
+
+    def __init__(self, email,firstname,yunk,level,aura,houselevel,mylocation,help):
+        self.email = email
+        self.firstname = firstname
+        self.yunk = yunk
+        self.level = level
+        self.aura = aura
+        self.houselevel = houselevel
+        self.mylocation = mylocation
+        self.help = help
+
+    def __repr__(self):
+        return '<email %r>' % self.email
+
 def getdatafromtiotsu():
     firstname=request.form['username']
     email=request.form['mymail']
@@ -54,30 +79,6 @@ def windataupdate():
         update_this.aura = aura
         db.session.commit()
     return "OK"
-
-class tiotsu_users(db.Model):
-    __tablename__ = "tiotsu_users"
-    email = db.Column(db.String(120),nullable=False, primary_key=True)
-    firstname = db.Column(db.String(100),nullable=False)
-    yunk = db.Column(db.String(100))
-    level = db.Column(db.String(50),nullable=False)
-    aura = db.Column(db.String(100))
-    houselevel = db.Column(db.String(50))
-    mylocation = db.Column(db.String(150),nullable=False,unique=True)
-    help = db.Column(db.String(100))
-
-    def __init__(self, email,firstname,yunk,level,aura,houselevel,mylocation,help):
-        self.email = email
-        self.firstname = firstname
-        self.yunk = yunk
-        self.level = level
-        self.aura = aura
-        self.houselevel = houselevel
-        self.mylocation = mylocation
-        self.help = help
-
-    def __repr__(self):
-        return '<email %r>' % self.email
 
 def createanduploaddata():
     update_this = tiotsu_users.query.filter_by(email = email).first()
