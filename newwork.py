@@ -14,8 +14,8 @@ app = Flask(__name__)
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 #engine = create_engine('postgresql+psycopg2://shankoibito:pappussp@localhost/tiotsudatamap')
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
+app.config['SQLALCHEMY_DATABASE_URI'] ='postgres://shanbirsingh@toitsu:Ihope1lovemyself@toitsu.postgres.database.azure.com:5432/postgres'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vrtvapidqltuni:abf33013012ea480de6c1d50bc4230d6218296846ba8a5bd4b44c80fa7325859@ec2-54-227-250-33.compute-1.amazonaws.com:5432/d9p6o27d01ao21'
 app.config['SECRET_KEY'] = 'oh_so_secret'
 
 class tiotsu_users(db.Model):
